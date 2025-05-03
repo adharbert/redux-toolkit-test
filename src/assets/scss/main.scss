@@ -1,0 +1,49 @@
+@import './variables';
+
+body {
+    background-color: $background-color;
+    color: $text-color;
+    font-family: $font-primary;
+  }
+  
+  .navbar {
+    .nav-link.active {
+      background-color: darken($primary-color, 10%);
+      border-radius: $border-radius;
+    }
+  }
+  
+  .list-group-item {
+    transition: background-color 0.2s ease;
+    &:hover {
+      background-color: lighten($background-color, 2%);
+    }
+  }
+  
+  .card {
+    transition: transform 0.2s ease;
+    &:hover {
+      transform: translateY(-0.125rem);
+    }
+  }
+  
+  .alert {
+    margin-bottom: $spacing-md;
+  }
+
+  .add-product-form {
+    max-width: 500px;
+    .form-control {
+      border-radius: $border-radius;
+      margin-bottom: $spacing-sm;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: $spacing-sm;
+    }    
+  }
+
+  .alert-success {
+    margin-bottom: $spacing-md;
+  }

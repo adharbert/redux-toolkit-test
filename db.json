@@ -1,0 +1,18 @@
+{
+  "users": [
+    { "id": 1, "name": "John Doe" },
+    { "id": 2, "name": "Jane Smith" },
+    { "id": 3, "name": "Alice Johnson" },
+    { "id": 4, "name": "Ben Johnston" }
+  ],
+  "products": [
+    { "id": 1, "title": "Laptop", "price": 999.99 },
+    { "id": 2, "title": "Smartphone", "price": 499.99 },
+    { "id": 3, "title": "Headphones", "price": 79.99 },
+    { "id": 4, "title": "GI Joe Doll", "price": 15.19 },
+    { "id": 5, "title": "Soccer ball", "price": 39.25 },
+    { "id": 6, "title": "Charger", "price": 8.99 },
+    { "id": 7, "title": "Wallet", "price": 159.99 },
+    { "id": 8, "title": "Ninja Turtles - Leo", "price": 28.99 }
+  ]
+}

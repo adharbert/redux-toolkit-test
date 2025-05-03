@@ -1,0 +1,38 @@
+{
+  "name": "redux-toolkit-app",
+  "private": true,
+  "version": "1.0.0",
+  "engines": {
+    "node": "22.15.0"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "mock-api": "json-server --watch db.json --port 3001",
+    "start": "concurrently \"npm run dev\" \"npm run mock-api\""
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.7.0",
+    "axios": "^1.9.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.5.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.22.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "json-server": "^1.0.0-beta.3",
+    "sass": "^1.87.0",
+    "vite": "^6.3.1"
+  }
+}
