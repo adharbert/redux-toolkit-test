@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts, addProduct } from './productSlice';
 import { useEffect, useState } from 'react';
+import toastr from 'toastr';
 
 
 
@@ -24,11 +25,12 @@ const ProductDisplay = () => {
             dispatch(addProduct({ id: nextId, title, price: parseFloat(price)  }))
                 .unwrap()
                 .then(() => {
-                setSuccessMessage('Product added successfully!');
-                setTitle('');
-                setPrice('');
-                setTimeout(() => setSuccessMessage(''), 3000);
-            })
+                    //setSuccessMessage('Product added successfully!');
+                    toastr.success('Product added successfully!', '', { timeOut: 3000 });
+                    setTitle('');
+                    setPrice('');
+                    setTimeout(() => setSuccessMessage(''), 3000);
+                })
             .catch((err) => console.error(err));
         }
     }
