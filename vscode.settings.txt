@@ -1,0 +1,42 @@
+{
+    "liveServer.settings.AdvanceCustomBrowserCmdLine": "chrome",
+    "prettier.jsxSingleQuote": true,
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.iconTheme": "vscode-icons",
+    "redhat.telemetry.enabled": false,
+    "emmet.showSuggestionsAsSnippets": true,
+    "emmet.triggerExpansionOnTab": true,
+    "liveSassCompile.settings.autoprefix": [],
+    "liveSassCompile.settings.excludeList": [
+        "/**/node_modules/**",
+        "/.vscode/**"
+    ],
+    "liveSassCompile.settings.partialsList": [
+        "/**/_*.s[ac]ss"
+    ],
+    "liveSassCompile.settings.generateMap": false,
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            //"savePath": "/src/assets/css/"
+            "savePathReplacementPairs": {"/scss/": "/css/"}
+        },
+        {
+            "format": "compressed",
+            "extensionName": ".min.css",
+            //"savePath": "/src/assets/css/"
+            "savePathReplacementPairs": {"/scss/": "/css/"}
+        }
+    ],
+    "git.confirmSync": false,
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "git.autofetch": true,
+    "tabnine.experimentalAutoImports": true,
+    "vsicons.dontShowNewVersionMessage": true,
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}
