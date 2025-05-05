@@ -11,5 +11,6 @@ To run this, adding the following to vscode
 ### Node version
 Be sure to keep an eye on the package.json for "engines", this will have the version of Node this is running.  Be sure to have nvm to update node versions as well.
 
-
+### API data
+This is using mock-api and it uses the db.json as the data source.  
 
