@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts, addProduct } from './productSlice';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import toastr from 'toastr';
 
 
@@ -12,7 +12,15 @@ const ProductDisplay = () => {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const nextId = products?.length > 0 ? Math.max(...products.map(p => parseInt(p?.id))) + 1 : 1;
+    //const nextId = products?.length > 0 ? Math.max(...products.map(p => parseInt(p?.id))) + 1 : 1;
+    
+    // Compute nextId using useMemo to react to changes in products
+    const nextId = useMemo(() => {
+        return products?.length > 0 
+            ? Math.max(...products.map(p => parseInt(p?.id))) + 1 
+            : 1;
+    }, [products]);
+    
 
     useEffect(() => {
         dispatch(fetchProducts());
@@ -22,6 +30,8 @@ const ProductDisplay = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (title && price) {
+            
+            console.log(nextId);
             dispatch(addProduct({ id: nextId, title, price: parseFloat(price)  }))
                 .unwrap()
                 .then(() => {
