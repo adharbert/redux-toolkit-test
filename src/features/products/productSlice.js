@@ -2,25 +2,53 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 
-// API call for products
-export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
-    try {
-        const response = await axios.get('http://localhost:3001/products');
-        return response.data;
-    } catch (error) {
-        throw new Error(`Failed to fetch products. Error message: ${error}` );
-    }
-  });
+    // API call for products.  Shows how to reference categories that is in the store.
+    // If this wasn't calling something from the store, the (_, { getState }) wouldn't have the getState part.
+    // for an example of that, check userSlice fetchUsers.
+    export const fetchProducts = createAsyncThunk('products/fetchProducts', async (_, { getState }) => {
+        try {
+            const response = await axios.get('http://localhost:3001/products');
+            const { categories } = getState().categoryReducer;
+            
+            // Convert id to integer and map categoryId to categoryName
+            return response.data.map((product) => {
+                const category = categories.find((cat) => cat.id === parseInt(product.categoryId));
+                return {
+                    ...product,
+                    id: parseInt(product.id),
+                    categoryId: parseInt(product.categoryId),
+                    categoryName: category ? category.name : 'Unknown',
+                };
+            });
+        } catch (error) {
+            throw new Error(`Failed to fetch products: ${error.message}`);
+        }
+    });
+    
 
-  // API call to create product
-  export const addProduct = createAsyncThunk('products/addProduct', async (product, { dispatch }) => {
-    try {
-        const response = await axios.post('http://localhost:3001/products', product);
-        dispatch(addProductSuccess(response.data));
-    } catch (error) {
-        throw new Error(`Failed to add product. Error message: ${error}`);
-    }
-  });
+
+
+
+    // using redux thunks, grabbing product, dispatch and state.  Need this to grab category details.
+    export const addProduct = createAsyncThunk('products/addProduct', async (product, { dispatch, getState }) =>  {
+        try {
+            const response = await axios.post('http://localhost:3001/products', product);
+            const { categories } = getState().categoryReducer;
+            const category = categories.find((cat) => cat.id === parseInt(response.data.categoryId));
+            const newProduct = {
+                ...response.data,
+                id: parseInt(response.data.id),
+                categoryId: parseInt(response.data.categoryId),
+                categoryName: category ? category.name : 'Unknown',
+            };
+            dispatch(addProductSuccess(newProduct));
+            return newProduct;
+        } catch (error) {
+            throw new Error(`Failed to add new products. Error message: ${error}` );
+        }
+    });
+
+
 
 
 const productSlice = createSlice({
@@ -33,7 +61,7 @@ const productSlice = createSlice({
     reducers: {
         addProductSuccess: (state, action) => {
             state.products.push(action.payload);
-            //state.products = [...state.products, action.payload];
+            //state.products = [...state.products, action.payload];  // for some reason the spread operator messes up the data here.
         },
     },
     extraReducers: (builder) => {

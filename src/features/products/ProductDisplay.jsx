@@ -8,17 +8,16 @@ import toastr from 'toastr';
 const ProductDisplay = () => {
 
     const dispatch = useDispatch();
-    const { products, loading, error } = useSelector((state) => state.productReducer);
+    const { categories } = useSelector((state) => state.categoryReducer);
+    const { products, loading, error } = useSelector((state) => state.productReducer);    
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
+    const [categoryId, setCategoryId] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    //const nextId = products?.length > 0 ? Math.max(...products.map(p => parseInt(p?.id))) + 1 : 1;
     
     // Compute nextId using useMemo to react to changes in products
     const nextId = useMemo(() => {
-        return products?.length > 0 
-            ? Math.max(...products.map(p => parseInt(p?.id))) + 1 
-            : 1;
+        return products?.length > 0 ? Math.max(...products.map(p => parseInt(p?.id))) + 1 : 1;
     }, [products]);
     
 
@@ -32,7 +31,7 @@ const ProductDisplay = () => {
         if (title && price) {
             
             console.log(nextId);
-            dispatch(addProduct({ id: nextId, title, price: parseFloat(price)  }))
+            dispatch(addProduct({ id: nextId, title, price: parseFloat(price), categoryId: parseInt(categoryId)  }))
                 .unwrap()
                 .then(() => {
                     //setSuccessMessage('Product added successfully!');
@@ -76,6 +75,23 @@ const ProductDisplay = () => {
                                     required
                             />
                         </div>
+                        <div className="mb-3">
+                            <label htmlFor="category" className="form-label">Category</label>
+                            <select name="category" 
+                                    id="category" 
+                                    className="form-select"
+                                    value={categoryId} 
+                                    onChange={(e) => setCategoryId(e.target.value)  }
+                                    required
+                            >
+                                <option value="">Select a Category</option>
+                                { categories.map((category) => (
+                                    <option key={category.id} value={category.id}>
+                                        {category.name}
+                                    </option>
+                                )) }
+                            </select>
+                        </div>
                         <button type="submit" className="btn btn-primary">Add Product</button>
                     </form>
                     {successMessage && <div className="alert alert-success mt-3">{successMessage}</div>}
@@ -93,6 +109,7 @@ const ProductDisplay = () => {
                                 <div className="card-body">
                                     <h5 className="card-title">{product.title}</h5>
                                     <p className="card-text">${product.price}</p>
+                                    <p className="card-text"><small className="text-muted">Category: {product.categoryName}</small></p>
                                 </div>
                             </div>
                         </div>

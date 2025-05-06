@@ -14,3 +14,10 @@ Be sure to keep an eye on the package.json for "engines", this will have the ver
 ### API data
 This is using mock-api and it uses the db.json as the data source.  
 
+
+## Things to look for:
+- See how redux createSplice works.
+- Products has a reference to categories, see how the display & reducer handles grabbing data from the store.
+
+
+
