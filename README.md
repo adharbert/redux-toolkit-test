@@ -18,6 +18,7 @@ This is using mock-api and it uses the db.json as the data source.
 ## Things to look for:
 - See how redux createSplice works.
 - Products has a reference to categories, see how the display & reducer handles grabbing data from the store.
+- For anything that needs to load globally, like lookup values.  Load them from App.jsx.  That way they will be available regardless of component. 
 
 
 
