@@ -30,7 +30,8 @@ import axios from 'axios';
 
 
     // using redux thunks, grabbing product, dispatch and state.  Need this to grab category details.
-    export const addProduct = createAsyncThunk('products/addProduct', async (product, { dispatch, getState }) =>  {
+    // export const addProduct = createAsyncThunk('products/addProduct', async (product, { dispatch, getState }) =>  {
+    export const addProduct = createAsyncThunk('products/addProduct', async (product, { getState }) =>  {
         try {
             const response = await axios.post('http://localhost:3001/products', product);
             const { categories } = getState().categoryReducer;
@@ -41,7 +42,7 @@ import axios from 'axios';
                 categoryId: parseInt(response.data.categoryId),
                 categoryName: category ? category.name : 'Unknown',
             };
-            dispatch(addProductSuccess(newProduct));
+            //dispatch(addProductSuccess(newProduct));
             return newProduct;
         } catch (error) {
             throw new Error(`Failed to add new products. Error message: ${error}` );
@@ -61,7 +62,12 @@ const productSlice = createSlice({
     reducers: {
         addProductSuccess: (state, action) => {
             state.products.push(action.payload);
-            //state.products = [...state.products, action.payload];  // for some reason the spread operator messes up the data here.
+            /* *****************************
+             traditionally we use this (below), but inside createSlice, it uses immerJS that 
+             makes the statement above immutable.  NOTE, this only works inside CreateSlice
+             anywhere else, you still need to use the spread operator.
+                  -- traditional way is this -----  state.products = [...state.products, action.payload];
+            ********************************/
         },
     },
     extraReducers: (builder) => {
@@ -94,7 +100,9 @@ const productSlice = createSlice({
 });
 
 
-export const { addProductSuccess } = productSlice.actions;
+
+//export const allProducts = (state) => state.productReducer; // export state for product object, and use the "useSelector(allProducts) on other pages now."
+export const { addProductSuccess } = productSlice.actions;  // exporting action creator.
 export default productSlice.reducer;
 
 
